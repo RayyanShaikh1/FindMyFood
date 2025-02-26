@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
 
-import Button from '@/components/Button.tsx';
+import Button from '@/components/Button';
 import TextBox from '@/components/TextBox';
 
 export default function Entry() {
@@ -32,6 +32,7 @@ export default function Entry() {
             placeholder="Password" 
             value={password} 
             onChangeText={setPassword} 
+            secureTextEntry={true}
         />
 
         <Button 

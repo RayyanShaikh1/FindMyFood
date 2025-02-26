@@ -8,7 +8,13 @@ interface TextBoxProps extends TextInputProps {
   secureTextEntry?: boolean;
 }
 
-export default function TextBox({ placeholder, value, onChangeText, secureTextEntry, ...rest }: TextBoxProps) {
+export default function TextBox({
+  placeholder,
+  value,
+  onChangeText,
+  secureTextEntry,
+  ...rest
+}: TextBoxProps) {
   return (
     <View style={styles.container}>
       <TextInput

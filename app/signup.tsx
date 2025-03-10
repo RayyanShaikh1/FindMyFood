@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import { auth } from "../FirebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import Button from "@/components/Button";
 import TextBox from "@/components/TextBox";
@@ -15,9 +15,9 @@ export default function Entry() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signIn = async () => {
+  const signUp = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      const user = await createUserWithEmailAndPassword(auth, email, password);
       if (user) router.replace("/(tabs)/home");
     } catch (error: any) {
       console.log(error);
@@ -49,24 +49,21 @@ export default function Entry() {
         />
         <Button
           containerStyles={styles.button}
-          onPress={signIn}
-          title="Log In"
+          onPress={signUp}
+          title="Sign Up"
         />
         <View
           style={{
-            height: 0.7,
+            height: 0.5,
             backgroundColor: "grey",
             width: 350,
             marginVertical: 20,
           }}
         />
         <Text style={{ textAlign: "center", color: "black" }}>
-          Don't have an account?
-          <TouchableOpacity onPress={() => router.push("/signup")}>
-            <Text style={{ textAlign: "center", color: "blue" }}>
-              {" "}
-              Sign Up.
-            </Text>
+          Have an account?
+          <TouchableOpacity onPress={() => router.push("/")}>
+            <Text style={{ color: "blue" }}> Sign In.</Text>
           </TouchableOpacity>
         </Text>
       </View>

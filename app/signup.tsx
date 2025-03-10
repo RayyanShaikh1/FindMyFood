@@ -62,21 +62,7 @@ export default function Entry() {
         onChangeText={setPassword}
         secureTextEntry={true}
       />
-      <Button onPress={signIn} title="Log In" />
-      <View
-        style={{
-          height: 0.5,
-          backgroundColor: "grey",
-          width: "90%",
-          marginVertical: 20,
-        }}
-      />
-      <Text style={{ textAlign: "center", color: "black" }}>
-        Don't have an account?
-        <TouchableOpacity onPress={() => router.push("/signup")}>
-          <Text style={{ color: "blue" }}> Sign Up.</Text>
-        </TouchableOpacity>
-      </Text>
+      <Button onPress={signUp} title="Sign Up" />
     </View>
   );
 }

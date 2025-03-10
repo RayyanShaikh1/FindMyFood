@@ -1,50 +1,79 @@
-import { Text, View, Image } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { useRouter } from 'expo-router';
+import { Text, View, Image } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { useRouter } from "expo-router";
+import { auth } from "../FirebaseConfig";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
-import Button from '@/components/Button';
-import TextBox from '@/components/TextBox';
+import Button from "@/components/Button";
+import TextBox from "@/components/TextBox";
 
 export default function Entry() {
-    const router = useRouter();
+  const router = useRouter();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", }}>
-        <StatusBar style="light" />
+  const signIn = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      if (user) router.replace("/(tabs)/home");
+    } catch (error: any) {
+      console.log(error);
+      alert("Sign in failed: " + error.message);
+    }
+  };
 
-        <Image 
-            source={require('@/assets/images/appicon.png')}
-        />
-        <Text style={{ textAlign: "center", color: "black", fontWeight: "bold", fontSize: 32 }}> 
-            Find My Food!
-        </Text>
+  const signUp = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      if (user) router.replace("/(tabs)/home");
+    } catch (error: any) {
+      console.log(error);
+      alert("Sign in failed: " + error.message);
+    }
+  };
 
-        <TextBox 
-            placeholder="Email or username" 
-            value={email} 
-            onChangeText={setEmail} 
-        />
-        <TextBox 
-            placeholder="Password" 
-            value={password} 
-            onChangeText={setPassword} 
-            secureTextEntry={true}
-        />
-
-        <Button 
-            onPress={() => router.push('/(tabs)/home')}
-            title="Log In"
-         /> 
-
-        <View style={{ height: 0.5, backgroundColor: 'grey', width: '90%', marginVertical: 20}} />
-
-        <Text style={{ textAlign: "center", color: "black"}}> 
-            Don't have an account? Sign Up.
-        </Text>
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <StatusBar style="light" />
+      <Image source={require("@/assets/images/appicon.png")} />
+      <Text
+        style={{
+          textAlign: "center",
+          color: "black",
+          fontWeight: "bold",
+          fontSize: 32,
+        }}
+      >
+        Find My Food!
+      </Text>
+      <TextBox
+        placeholder="Email or username"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextBox
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry={true}
+      />
+      <Button onPress={signUp} title="Log In" />
+      <View
+        style={{
+          height: 0.5,
+          backgroundColor: "grey",
+          width: "90%",
+          marginVertical: 20,
+        }}
+      />
+      <Text style={{ textAlign: "center", color: "black" }}>
+        Don't have an account? Sign Up.
+      </Text>
     </View>
   );
 }

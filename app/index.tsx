@@ -1,15 +1,11 @@
-import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import { Image, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { auth } from "../FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Input, Button } from "@rneui/themed";
 
-import Button from "@/components/Button";
-import TextBox from "@/components/TextBox";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-export default function Entry() {
+export default function App() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -26,78 +22,76 @@ export default function Entry() {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: "#e8ecf4",
-        flex: 1,
-      }}
-    >
-      <View style={styles.container}>
-        <StatusBar style="light" />
-        <Image source={require("@/assets/images/appicon.png")} />
-        <Text style={styles.title}>Find My Food!</Text>
-        <TextBox
-          placeholder="Email or username"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextBox
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-        <Button
-          containerStyles={styles.button}
-          onPress={signIn}
-          title="Log In"
-        />
-        <View
-          style={{
-            height: 0.7,
-            backgroundColor: "grey",
-            width: 350,
-            marginVertical: 20,
-          }}
-        />
-        <Text style={{ textAlign: "center", color: "black" }}>
-          Don't have an account?
-          <TouchableOpacity onPress={() => router.push("/signup")}>
-            <Text style={{ textAlign: "center", color: "blue" }}>
-              {" "}
-              Sign Up.
-            </Text>
-          </TouchableOpacity>
-        </Text>
-      </View>
+    <SafeAreaView style={styles.safeAreaViewContainer}>
+      <Image
+        source={require("@/assets/images/fmf_icon.png")}
+        style={styles.imageContainer}
+      />
+      <Text style={styles.title}>Login</Text>
+      <Input
+        inputContainerStyle={styles.inputContainerStyle}
+        inputStyle={styles.inputStyle}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <Input
+        inputContainerStyle={styles.inputContainerStyle}
+        inputStyle={styles.inputStyle}
+        placeholder="Password"
+        secureTextEntry={true}
+        value={password}
+        onChangeText={setPassword}
+      />
+      <Button
+        buttonStyle={[styles.buttonStyle, { width: 300 }]}
+        containerStyle={[styles.buttonContainerStyle, { paddingTop: 10 }]}
+        onPress={signIn}
+        title="Login"
+      />
+      <Button
+        containerStyle={[styles.buttonContainerStyle, { paddingTop: 200 }]}
+        onPress={() => router.push("/signup")}
+        title="Sign Up"
+        titleStyle={{ color: "white" }}
+        type="clear"
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeAreaViewContainer: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#0F4B65",
     alignItems: "center",
+    justifyContent: "center",
   },
-  button: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#177DA9",
-    minWidth: 350,
-    height: 50,
-    marginVertical: 10,
-    borderRadius: 16,
+  imageContainer: {
+    height: 250,
+    width: 250,
   },
   title: {
-    textAlign: "center",
-    color: "black",
-    fontWeight: "bold",
-    fontSize: 32,
-  },
-  text: {
-    textAlign: "center",
     color: "white",
-    fontSize: 16,
+    fontSize: 32,
+    fontWeight: 600,
+    paddingBottom: 20,
+  },
+  inputStyle: {
+    paddingLeft: 10,
+  },
+  inputContainerStyle: {
+    backgroundColor: "white",
+    borderRadius: 3,
+    margin: "auto",
+    width: 300,
+  },
+  buttonStyle: {
+    backgroundColor: "#177DA9",
+    borderRadius: 3,
+  },
+  buttonContainerStyle: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

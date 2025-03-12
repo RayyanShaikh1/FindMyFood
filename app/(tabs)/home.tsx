@@ -1,26 +1,18 @@
-import { StyleSheet } from "react-native";
-import { Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View, StyleSheet, SafeAreaView } from "react-native";
 
 export default function TabOneScreen() {
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: "#e8ecf4",
-        flex: 1,
-      }}
-    >
-      <View>
-        <Text>Home page</Text>
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text>Home page</Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
+    backgroundColor: "#0F4B65",
+    flex: 1,
     justifyContent: "center",
   },
   title: {

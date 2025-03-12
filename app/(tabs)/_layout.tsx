@@ -1,9 +1,6 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
-import { Pressable } from "react-native";
-
-import Navbar from "@/components/Navbar";
 
 // src: https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -27,7 +24,6 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerTitle: () => <Navbar />,
         }}
       />
       <Tabs.Screen
@@ -37,7 +33,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="map-marker" color={color} />
           ),
-          headerTitle: () => <Navbar />,
         }}
       />
       <Tabs.Screen
@@ -45,7 +40,6 @@ export default function TabLayout() {
         options={{
           title: "Social",
           tabBarIcon: ({ color }) => <TabBarIcon name="users" color={color} />,
-          headerTitle: () => <Navbar />,
         }}
       />
       <Tabs.Screen
@@ -53,7 +47,6 @@ export default function TabLayout() {
         options={{
           title: "account",
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
-          headerTitle: () => <Navbar />,
         }}
       />
     </Tabs>

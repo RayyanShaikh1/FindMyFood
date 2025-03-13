@@ -46,7 +46,7 @@ export default function App() {
       <Button
         buttonStyle={[styles.buttonStyle, { width: 300 }]}
         containerStyle={[styles.buttonContainerStyle, { paddingTop: 10 }]}
-        onPress={signIn}
+        onPress={() => router.push("/home")}
         title="Login"
       />
       <Button
